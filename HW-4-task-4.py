@@ -24,36 +24,34 @@ def add_contact(args, contacts):
 
 def change_contact(args, contacts):
     """При команді change, шукаємо імя в словнику, якщо воно є,
-    змінєюмо телефон, якщо немає виводим текст контакт не знайдений
-    додати новий контакт, і пропонуєм натиснути Y (так) або N (ні).
-    Якщо відповідь так, то передаємо аргументи в функцію def add_contact, 
-    якщо ні сповіщаєм, що контакт не доданий
-    """
+    змінєюмо телефон, якщо немає виводим текст контакт не знайдений"""
+    
     name, phone = args
     if name in contacts:
         contacts[name] = phone
         return "Contact updated."
     else:
-        print(f"Contact not found, you want save this new contact? Y|N  ")
-        new_contact = input().upper()
-        if new_contact == "Y":
-            return add_contact(args, contacts)
-        else :
-            return "No contact added."
+        return "Contact not found."
+        
 
 def show_phone(args, contacts):
     """Шукаєм контакт в списку, і виводимо дані,
     якщо немає виводим повідомлення"""
     name = args[0]
     if name in contacts:
-        print(f"{name}: {contacts[name]}")
+        return(f"{name}: {contacts[name]}")
     else:
-        print(f'Number {name} is not saved')
+        return(f'Number {name} is not saved')
 
 def show_all(contacts):
     """Виводимо весь список контактів"""
-    for name, number in contacts.items():
-        print(f'Name: {name}, Phone: {number}')
+    if len(contacts) == 0:
+        return "Phone book is empty"
+    else:
+        contact_list = "\n".join([f'Name: {name}, Phone: {number}' for name, number in contacts.items()])
+        return contact_list
+
+        
 
 
 def main():
@@ -72,14 +70,23 @@ def main():
         elif command == "add":
             print(add_contact(args, contacts))
         elif command == "change":
-            print(change_contact(args, contacts))
+            result = change_contact(args, contacts)
+            print(result)
+            if result == "Contact not found.":
+                
+                """Якщо отримуємо повідомлення, що контакт не знайдений пропонуємо додати його як новий"""
+
+                print("Do you want to save this new contact? (Y/N)")
+                new_contact = input().strip().upper()
+                if new_contact == "Y":
+                    print(add_contact(args, contacts))
+                else:
+                    print("No contact added.")
+
         elif command == "phone":
-            show_phone(args, contacts)
+            print(show_phone(args, contacts))
         elif command == "all":
-            if len(contacts) == 0:
-                print("Phone book is empty")
-            else:
-                show_all(contacts)
+          print(show_all(contacts))
         else:
             print("Invalid command.")
 
