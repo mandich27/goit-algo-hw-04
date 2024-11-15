@@ -74,7 +74,7 @@ def main():
             print(result)
             if result == "Contact not found.":
                 
-                """Якщо отримуємо повідомлення, що контакт не знайдений пропонуємо додати його як новий"""
+                """Якщо отримуємо повідомлення, що контакт не знайдений, пропонуємо додати його як новий"""
 
                 print("Do you want to save this new contact? (Y/N)")
                 new_contact = input().strip().upper()
