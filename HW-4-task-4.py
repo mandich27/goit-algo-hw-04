@@ -70,19 +70,7 @@ def main():
         elif command == "add":
             print(add_contact(args, contacts))
         elif command == "change":
-            result = change_contact(args, contacts)
-            print(result)
-            if result == "Contact not found.":
-                
-                """Якщо отримуємо повідомлення, що контакт не знайдений, пропонуємо додати його як новий"""
-
-                print("Do you want to save this new contact? (Y/N)")
-                new_contact = input().strip().upper()
-                if new_contact == "Y":
-                    print(add_contact(args, contacts))
-                else:
-                    print("No contact added.")
-
+            print(change_contact(args, contacts))
         elif command == "phone":
             print(show_phone(args, contacts))
         elif command == "all":
